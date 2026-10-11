@@ -1,1 +1,1 @@
-window.VERSION = {"version": "v4", "built_at": "2026-10-12 07:54", "commit": "74da77f", "note": "v3 · 简化站点：删 /d/ 子目录 + 单 index.html + 删独立交通指引 section（已整合进主日程）"};
+window.VERSION = {"version": "v5", "built_at": "2026-10-12 07:57", "commit": "ff32fe8", "note": "v4 · 切换底图为高德矢量瓦片（webrd0[1-4]）· 国内数据最全 · 免 Key · 4 子域防单点"};

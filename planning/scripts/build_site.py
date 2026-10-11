@@ -281,9 +281,10 @@ JS_MAP = """
 const COLORS=__COLORS__, CITY_CN=__CITYCN__, CITY_ZOOM=__CITYZOOM__, CITYTK=__CITYTK__,
       DAYCOL=__DAYCOLORS__, DEFCOL=__DEFCOLOR__;
 const LAB=window.__LABELVAR__||{};
-const map=L.map("map").setView([47.9,16.5],6);
-L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
-  {maxZoom:19,attribution:"Tiles &copy; Esri"}).addTo(map);
+const map=L.map("map").setView([25.5,102.0],7);
+// 高德矢量瓦片（国内数据最全，免 Key，4 子域防单点）
+L.tileLayer("https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+  {subdomains:"1234", maxZoom:18, attribution:"© 高德地图"}).addTo(map);
 
 const groups={},layers={},bounds=[],placeM=[],cityM=[],cityPos={},hM=[];
 // 标记为"备用"的景点不进地图（不入 itinerary，避免孤立 marker）
