@@ -3,8 +3,8 @@
 2027 年 11 月「我和灯灯」的云南腾冲 / 保山行程规划 + 可视化网站。纯静态站点，GitHub Pages 托管。
 
 - **线上地址**：https://jack975645419.github.io/Trip_2027_11_YunNan/
-- **现行方案**：`/d/` —— 广州 → 昆明 1 晚 → 腾冲 3 晚 → 保山 1 晚（短停）→ 深圳（4 晚 5 天）
-- **需求与规划文档母文件夹**：`D:\Proj\Trip_2027_11_YunNan\planning\`
+- **现行方案**：单方案（无方案选择）—— 广州 → 昆明 1 晚 → 腾冲 3 晚 → 保山 1 晚（短停）→ 深圳（4 晚 5 天）
+- **需求与规划文档**：`planning/旅行需求.md`
 
 ## 一、技术栈
 
@@ -22,21 +22,20 @@
 
 ```
 Trip_2027_11_YunNan/
-├── index.html         主页（仅 1 方案 + 交通指引 + 3 段航班）
-├── 交通指引.md          ★ 交通指引源文件（构建时渲染成 guide/）
-├── guide/index.html    交通指引网页版
-├── d/index.html        ★ 方案 D 主页（5 天行程 + 20 个景点 + 9 家酒店）
+├── index.html         ★ 单方案主页（地图 + 行程 + 酒店 + 3 段航班）
+├── 交通指引.md          ★ 交通指引源（仅作文档；内容已整合进每日日程 note）
 ├── data/               渲染产物
 └── planning/           源数据 + 脚本 + 文档
-    ├── data/places.json (20 个景点：昆明 8 + 腾冲 8 + 保山 4)
+    ├── data/places.json (22 个景点：昆明 9 + 腾冲 9 + 保山 4)
     ├── data/hotels.json (9 家候选：每城 3 家)
-    ├── data/itineraries.json (方案 D 单方案)
+    ├── data/itineraries.json (单方案)
     ├── data/transit.json (5 POINTS + 2 METRO)
     ├── data/photos.json (空 - 本次未抓图)
     ├── scripts/build_site.py
     ├── scripts/smoke.py
     ├── scripts/version.py
     ├── scripts/write_data.py (一次性写入 data/)
+    ├── scripts/update_autumn.py (增量加黑龙潭 + 界头银杏)
     └── 旅行需求.md
 ```
 

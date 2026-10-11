@@ -711,17 +711,16 @@ document.getElementById("verfoot").textContent=(V.version||"")+" · "+(V.built_a
 PLAN_TPL = """<!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
-<title>__TITLE__ · 2027-11 云南腾冲保山</title>
+<title>__TITLE__</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
 <style>__CSS__</style></head><body><div class="wrap">
-<header><a class="back" href="../index.html">← 全部方案</a>
+<header>
 <h1>__TITLE__</h1><div class="sub">__SUBTITLE__</div>
 <div class="sub">__HEAD__</div>
 <div class="sub" style="margin-top:9px"><span class="badge" id="ver"></span></div></header>
 <h2>地图（右上角 ⛶ 可全屏）</h2><div id="map"></div>
 <h2>行程一览</h2><div class="ovw" id="overview"></div>
 <h2>逐日行程</h2><div id="days"></div><h2>已订酒店</h2><div id="hotels"></div>
-__HIST__
 <footer><div id="verfoot"></div><div style="margin-top:6px">__TITLE__ · 草稿</div></footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -953,63 +952,49 @@ def build_pages():
     ]
     ver = git_count() + 1
     note = BUILD_NOTE
-    for k, itin in itins.items():
-        lid = k.lower()
-        trade = "".join(f'<div class="pros">+ {x}</div>' for x in itin["pros"]) + \
-                "".join(f'<div class="cons">− {x}</div>' for x in itin["cons"])
-        d0, d1 = itin["days"][0]["date"], itin["days"][-1]["date"]
-        n = sum(s[1] for s in itin["stay"])
-        head = f"<b>{d0} – {d1}</b> · {n} 晚 {n + 1} 天 · {itin['route']}"
-        jsmap = (JS_MAP.replace("__COLORS__", json.dumps(COLORS))
-                       .replace("__CITYCN__", json.dumps(CITY_CN, ensure_ascii=False))
-                       .replace("__CITYZOOM__", str(CITY_ZOOM))
-                       .replace("__LABELVAR__", f"LABELS_{k}")
-                       .replace("__ITINVAR__", f"ITIN_{k}")
-                       .replace("__CITYTK__", json.dumps(CITY_TOKENS, ensure_ascii=False))
-                       .replace("__DAYCOLORS__", json.dumps(day_colors(itin), ensure_ascii=False))
-                       .replace("__DEFCOLOR__", json.dumps(DEF_COLOR))
-                       .replace("__NAME2PLACE__", json.dumps(name2place, ensure_ascii=False))
-                       .replace("__JSHOTELSLAYER__", JS_HOTELS_LAYER)
-                       .replace("__HOTELLINKS__", json.dumps(_HOTEL_LINKS, ensure_ascii=False)))
-        jsdays = (JS_DAYS.replace("__NAME2ID__", json.dumps(name2id, ensure_ascii=False))
-                         .replace("__PLACEINFO__", json.dumps(place_info, ensure_ascii=False))
-                         .replace("__ITINVAR__", f"ITIN_{k}"))
-        jsovw = overview_block().replace("__ITINVAR__", f"ITIN_{k}")
-        jshotels = JS_HOTELS.replace("__CITYPHOTO__", json.dumps(CITY_PHOTO, ensure_ascii=False))
 
-        def render(inline, hist):
-            return (PLAN_TPL.replace("__TITLE__", itin["title"])
-                            .replace("__SUBTITLE__", itin["subtitle"])
-                            .replace("__HEAD__", head)
-                            .replace("__TRADEOFF__", trade)
-                            .replace("__LID__", lid)
-                            .replace("__CSS__", CSS)
-                            .replace("__HIST__", hist)
-                            .replace("__DATA__", data_block(k, lid, inline, ver, note))
-                            .replace("__JSMAP__", jsmap)
-                            .replace("__JSDAYS__", jsdays)
-                            .replace("__JSOVW__", jsovw)
-                            .replace("__JSHOTELS__", jshotels)
-                            .replace("__JSVER__", JS_VER))
+    # 云南项目：单方案，直接输出到 REPO/index.html（不再有 /d/ 子目录）
+    k = next(iter(itins.keys()))
+    itin = itins[k]
+    lid = k.lower()
+    trade = "".join(f'<div class="pros">+ {x}</div>' for x in itin["pros"]) + \
+            "".join(f'<div class="cons">− {x}</div>' for x in itin["cons"])
+    d0, d1 = itin["days"][0]["date"], itin["days"][-1]["date"]
+    n = sum(s[1] for s in itin["stay"])
+    head = f"<b>{d0} – {d1}</b> · {n} 晚 {n + 1} 天 · {itin['route']}"
+    jsmap = (JS_MAP.replace("__COLORS__", json.dumps(COLORS))
+                   .replace("__CITYCN__", json.dumps(CITY_CN, ensure_ascii=False))
+                   .replace("__CITYZOOM__", str(CITY_ZOOM))
+                   .replace("__LABELVAR__", f"LABELS_{k}")
+                   .replace("__ITINVAR__", f"ITIN_{k}")
+                   .replace("__CITYTK__", json.dumps(CITY_TOKENS, ensure_ascii=False))
+                   .replace("__DAYCOLORS__", json.dumps(day_colors(itin), ensure_ascii=False))
+                   .replace("__DEFCOLOR__", json.dumps(DEF_COLOR))
+                   .replace("__NAME2PLACE__", json.dumps(name2place, ensure_ascii=False))
+                   .replace("__JSHOTELSLAYER__", JS_HOTELS_LAYER)
+                   .replace("__HOTELLINKS__", json.dumps(_HOTEL_LINKS, ensure_ascii=False)))
+    jsdays = (JS_DAYS.replace("__NAME2ID__", json.dumps(name2id, ensure_ascii=False))
+                     .replace("__PLACEINFO__", json.dumps(place_info, ensure_ascii=False))
+                     .replace("__ITINVAR__", f"ITIN_{k}"))
+    jsovw = overview_block().replace("__ITINVAR__", f"ITIN_{k}")
+    jshotels = JS_HOTELS.replace("__CITYPHOTO__", json.dumps(CITY_PHOTO, ensure_ascii=False))
 
-        d = REPO / lid
-        d.mkdir(parents=True, exist_ok=True)
-        # 历史快照：数据全部烘进页面，之后改数据也不会影响它
-        (d / f"v{ver}.html").write_text(render(True, ""), encoding="utf-8")
-        # 最新版
-        (d / "index.html").write_text(render(False, hist_block(lid)), encoding="utf-8")
-        print(f"  {lid}/index.html  +  {lid}/v{ver}.html（快照）")
-
-    picks = "".join(
-        f'<a class="pick" href="{k.lower()}/index.html"><div class="t">{itins[k]["title"]}</div>'
-        f'<div class="s">{itins[k]["subtitle"]}</div>'
-        f'<div class="s" style="margin-top:6px">住宿：'
-        + " · ".join(f"{c} {n}晚" for c, n in itins[k]["stay"]) + "</div></a>"
-        for k in itins)
-    (REPO / "index.html").write_text(
-        INDEX_TPL.replace("__CSS__", CSS).replace("__PICKS__", picks).replace("__JSVER__", JS_VER),
-        encoding="utf-8")
-    print("  index.html（选择页）")
+    # 数据全烘进页面（GitHub Pages 离线也能看）
+    page = (PLAN_TPL.replace("__TITLE__", itin["title"])
+                     .replace("__SUBTITLE__", itin["subtitle"])
+                     .replace("__HEAD__", head)
+                     .replace("__TRADEOFF__", trade)
+                     .replace("__LID__", lid)
+                     .replace("__CSS__", CSS)
+                     .replace("__HIST__", "")
+                     .replace("__DATA__", data_block(k, lid, True, ver, note))
+                     .replace("__JSMAP__", jsmap)
+                     .replace("__JSDAYS__", jsdays)
+                     .replace("__JSOVW__", jsovw)
+                     .replace("__JSHOTELS__", jshotels)
+                     .replace("__JSVER__", JS_VER))
+    (REPO / "index.html").write_text(page, encoding="utf-8")
+    print(f"  index.html（单方案 · 数据全烘进）")
 
 
 if __name__ == "__main__":
@@ -1017,5 +1002,5 @@ if __name__ == "__main__":
     build_pics()
     build_data()
     build_pages()
-    build_guide()
+    # build_guide() — 已并入主日程 note，不再单独渲染
     print("完成")
