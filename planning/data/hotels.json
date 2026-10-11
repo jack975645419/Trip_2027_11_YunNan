@@ -1,0 +1,158 @@
+{
+  "昆明": {
+    "city": "昆明",
+    "center": [
+      25.04,
+      102.71
+    ],
+    "total": 3,
+    "candidates": [
+      {
+        "id": "km_h1",
+        "name": "昆明翠湖宾馆",
+        "kind": "hotel",
+        "lat": 25.0509,
+        "lon": 102.7005,
+        "stars": 4,
+        "street": "翠湖南路 6 号",
+        "postcode": "650031",
+        "city": "昆明",
+        "country": "中国",
+        "note": "翠湖公园东门正对面，步行 3 min；陆军讲武堂 5 min"
+      },
+      {
+        "id": "km_h2",
+        "name": "昆明洲际酒店",
+        "kind": "hotel",
+        "lat": 25.0395,
+        "lon": 102.714,
+        "stars": 5,
+        "street": "东风西路 9 号",
+        "postcode": "650031",
+        "city": "昆明",
+        "country": "中国",
+        "note": "东风广场旁、市中心核心；金马碧鸡坊步行 15 min"
+      },
+      {
+        "id": "km_h3",
+        "name": "昆明君悦酒店",
+        "kind": "hotel",
+        "lat": 25.0178,
+        "lon": 102.683,
+        "stars": 5,
+        "street": "南滨路 8 号",
+        "postcode": "650228",
+        "city": "昆明",
+        "country": "中国",
+        "note": "滇池路；大观楼步行 5 min + 滇池观景"
+      }
+    ],
+    "picks": [
+      "昆明翠湖宾馆"
+    ]
+  },
+  "腾冲": {
+    "city": "腾冲",
+    "center": [
+      25.02,
+      98.49
+    ],
+    "total": 3,
+    "candidates": [
+      {
+        "id": "tc_h1",
+        "name": "和顺古镇·安之若宿精品客栈",
+        "kind": "hotel",
+        "lat": 25.0159,
+        "lon": 98.4575,
+        "stars": 4,
+        "street": "和顺古镇十字街 14 号",
+        "postcode": "679100",
+        "city": "腾冲",
+        "country": "中国",
+        "note": "住在古镇里；早/晚可独享古镇（游客散尽后最美）"
+      },
+      {
+        "id": "tc_h2",
+        "name": "腾冲热海·浴谷温泉酒店",
+        "kind": "hotel",
+        "lat": 24.992,
+        "lon": 98.4885,
+        "stars": 4,
+        "street": "热海景区内",
+        "postcode": "679100",
+        "city": "腾冲",
+        "country": "中国",
+        "note": "景区内住宿；含温泉无限次泡，避开白天人流"
+      },
+      {
+        "id": "tc_h3",
+        "name": "腾冲火山·玛御谷温泉小镇客栈",
+        "kind": "hotel",
+        "lat": 25.218,
+        "lon": 98.496,
+        "stars": 3,
+        "street": "火山景区南 2 km",
+        "postcode": "679100",
+        "city": "腾冲",
+        "country": "中国",
+        "note": "近火山公园；适合自驾或包车；田园风光"
+      }
+    ],
+    "picks": [
+      "和顺古镇·安之若宿精品客栈"
+    ]
+  },
+  "保山": {
+    "city": "保山",
+    "center": [
+      25.12,
+      99.16
+    ],
+    "total": 3,
+    "candidates": [
+      {
+        "id": "bs_h1",
+        "name": "保山永昌大酒店",
+        "kind": "hotel",
+        "lat": 25.111,
+        "lon": 99.158,
+        "stars": 4,
+        "street": "永昌路 18 号",
+        "postcode": "678000",
+        "city": "保山",
+        "country": "中国",
+        "note": "永昌古城内；易罗池步行 10 min、太保山步行 15 min"
+      },
+      {
+        "id": "bs_h2",
+        "name": "保山青华海酒店",
+        "kind": "hotel",
+        "lat": 25.1198,
+        "lon": 99.208,
+        "stars": 4,
+        "street": "青华海环湖路 1 号",
+        "postcode": "678000",
+        "city": "保山",
+        "country": "中国",
+        "note": "青华海旁湿地公园；适合晚散步看日落"
+      },
+      {
+        "id": "bs_h3",
+        "name": "保山云瑞机场宾馆",
+        "kind": "hotel",
+        "lat": 25.0528,
+        "lon": 99.167,
+        "stars": 3,
+        "street": "云瑞机场路",
+        "postcode": "678000",
+        "city": "保山",
+        "country": "中国",
+        "note": "近云瑞机场；回程当天首选（省转场时间）"
+      }
+    ],
+    "picks": [
+      "保山永昌大酒店"
+    ]
+  }
+}
