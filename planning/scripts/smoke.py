@@ -65,7 +65,7 @@ with sync_playwright() as p:
     print(f"  ITIN_D keys: {n_itin}")
 
     # 期望值（云南腾冲保山 5 天）
-    exp_places = 20
+    exp_places = 22
     exp_days = 5
     exp_hsec = 3   # 昆明 + 腾冲 + 保山
 
