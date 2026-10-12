@@ -541,7 +541,7 @@ document.getElementById("days").innerHTML = ITIN.days.map(function(d){
     return '<li><div class="pn">'+nm+ampm+dur+"</div>"+desc+book+th+"</li>";
   }).join("");
   return '<div class="day"><div class="hd"><span class="d">'+d.date+
-    '</span><span class="w">周'+d.w+'</span><span class="s">住 '+d.stay+'</span></div>'+
+    '</span><span class="w">'+d.w+'</span><span class="s">住 '+d.stay+'</span></div>'+
     '<div class="bd">'+
     (d.transport?'<div class="tp"><b>'+(d.flight?"&#9992;":"&#128646;")+"</b> "+d.transport+"</div>":"")+
     (items?"<ul>"+items+"</ul>":"")+
@@ -586,7 +586,7 @@ document.getElementById("overview").innerHTML = ITINOV.days.map(function(d){
     if(dst && dst!==d.city) cityTxt += ' <span class="rt">&#8644; '+(CCN[dst]||dst)+"</span>";
   }
   return '<div class="row"><span class="dt">'+d.date+
-    '<span class="w">周'+d.w+'</span></span>'+
+    '<span class="w">'+d.w+'</span></span>'+
     '<span class="city'+mv+'">'+cityTxt+'</span>'+
     (seg?'<span class="seg">'+seg+"</span>":"")+
     '<span class="sights">'+d.items.join(" · ")+"</span></div>";
@@ -690,7 +690,7 @@ document.getElementById("hotels").innerHTML = Object.keys(HH).map(function(key){
   const rec=HH[key], cands=rec.candidates||[];
   const picks=cands.filter(function(h){return (rec.picks||[]).indexOf(h.name)>=0;});
   const rest=cands.filter(function(h){return (rec.picks||[]).indexOf(h.name)<0;});
-  return '<div class="hsec"><h3>'+rec.city+"　已订酒店（每城 1 家，共 "+cands.length+" 家）</h3>"
+  return '<div class="hsec"><h3>'+rec.city+"　推荐酒店（每城 1 家，共 "+cands.length+" 家）</h3>"
     +picks.map(function(h){return card(h,rec,key);}).join("")
     +(rest.length?'<button class="more" data-k="'+key+'">展开另外 '+rest.length+' 家 ▾</button>'
       +'<div class="morelist" id="ml-'+key+'">'+rest.map(function(h){
@@ -721,7 +721,7 @@ PLAN_TPL = """<!DOCTYPE html>
 <div class="sub" style="margin-top:9px"><span class="badge" id="ver"></span></div></header>
 <h2>地图（右上角 ⛶ 可全屏）</h2><div id="map"></div>
 <h2>行程一览</h2><div class="ovw" id="overview"></div>
-<h2>逐日行程</h2><div id="days"></div><h2>已订酒店</h2><div id="hotels"></div>
+<h2>逐日行程</h2><div id="days"></div><h2>推荐酒店</h2><div id="hotels"></div>
 <footer><div id="verfoot"></div><div style="margin-top:6px">__TITLE__ · 草稿</div></footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -732,22 +732,22 @@ __DATA__
 GUIDE_TPL = """<!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
-<title>交通指引 · 2027-11 云南腾冲保山</title>
+<title>交通指引 · 2026-11 云南腾冲保山</title>
 <style>__CSS__</style></head><body><div class="wrap">
 <header><a class="back" href="../index.html">← 返回行程站</a>
 <h1>交通指引</h1>
 <div class="sub">机场进城 · 城际航班与大巴 · 市内交通 · 注意事项</div>
 <div class="sub" style="margin-top:6px">票价为公开价，<b>下单前以官网为准</b></div></header>
 <div class="gdoc">__BODY__</div>
-<footer><a href="../交通指引.md">原始 Markdown</a> · 行程草稿 · 2027-11 云南腾冲保山</footer>
+<footer><a href="../交通指引.md">原始 Markdown</a> · 行程草稿 · 2026-11 云南腾冲保山</footer>
 </div></body></html>"""
 
 INDEX_TPL = """<!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
-<title>2027-11 云南腾冲保山</title>
+<title>2026-11 云南腾冲保山</title>
 <style>__CSS__</style></head><body><div class="wrap">
-<header><h1>2027-11 云南腾冲保山 · 赏秋 5 天</h1>
+<header><h1>2026-11 云南腾冲保山 · 赏秋 5 天</h1>
 <div class="sub"><b>11.17 – 11.21</b> · 4 晚 5 天 · 深圳 → 昆明 → 腾冲 → 保山 → 深圳</div>
 <div class="sub" style="margin-top:9px"><span class="badge" id="ver"></span></div></header>
 <h2>本行程</h2>__PICKS__
@@ -934,7 +934,7 @@ def hist_block(lid):
 
 
 def build_pages():
-    # 酒店 ↔ 交通站点 双向链接（每个已订酒店连到几个相关交通点）
+    # 酒店 ↔ 交通站点 双向链接（每个推荐酒店连到几个相关交通点）
     global _HOTEL_LINKS
     _HOTEL_LINKS = [
         # Budapest ibis
